@@ -2,7 +2,7 @@ syntax = "proto3";
 
 option go_package = "pb/server";
 
-package server;
+package monitization;
 
 service Monitization{
     rpc HealthCheck(Request) returns (Response){}

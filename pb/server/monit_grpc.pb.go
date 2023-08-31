@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Monitization_HealthCheck_FullMethodName = "/server.Monitization/HealthCheck"
+	Monitization_HealthCheck_FullMethodName = "/monitization.Monitization/HealthCheck"
 )
 
 // MonitizationClient is the client API for Monitization service.
@@ -96,7 +96,7 @@ func _Monitization_HealthCheck_Handler(srv interface{}, ctx context.Context, dec
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Monitization_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "server.Monitization",
+	ServiceName: "monitization.Monitization",
 	HandlerType: (*MonitizationServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
