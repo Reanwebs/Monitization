@@ -1,18 +1,17 @@
 syntax = "proto3";
 
-option go_package = "pb/server";
+option go_package = "pb/client/conference";
 
-package server;
+package conference;
 
-service Monitization{
+service Conference{
     rpc HealthCheck(Request) returns (Response){}
 }
-
 
 message Request{
     string Data = 1;
 }
 
 message Response{
-    string Result = 2;
+    string Result =1;
 }
