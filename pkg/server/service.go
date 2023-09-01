@@ -20,7 +20,7 @@ func NewMonitizationServer(confClient client.ConferenceClient) *monitizationServ
 
 func (m *monitizationServer) HealthCheck(ctx context.Context, req *pb.Request) (*pb.Response, error) {
 	log.Println("Monitization server health checked")
-
-	return &pb.Response{Result: "Monitization server running"}, nil
+	result := "Monitization server running"
+	return &pb.Response{Result: result}, nil
 
 }

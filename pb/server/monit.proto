@@ -6,6 +6,11 @@ package monitization;
 
 service Monitization{
     rpc HealthCheck(Request) returns (Response){}
+    rpc CreditHistory(CreditHistoryRequest) returns (CreditHistoryResponse){}
+    rpc DebitHistory(DebitHistoryRequest) returns (DebitHistoryResponse){}
+    rpc UserWatchHour(UserWatchHourRequest) returns (UserWatchHourResponse){}
+    rpc ConferenceWatchHour(ConferenceWatchHourRequest) returns (ConferenceWatchHourResponse){}
+    rpc GroupWatchHour(GroupWatchHourRequest) returns (GroupWatchHourResponse){}
 }
 
 
@@ -14,5 +19,57 @@ message Request{
 }
 
 message Response{
-    string Result = 2;
+    string Result = 1;
 }
+
+message HistoryData{
+    string Reason = 1;
+    int32  Hour   = 2;
+    int32  Coin   = 3;
+    string Date   = 4;
+    string Time   = 5;
+}
+
+message CreditHistoryRequest{
+    string UserID = 1;
+}
+
+message CreditHistoryResponse{
+    repeated  HistoryData CreditData = 1;
+}
+
+message DebitHistoryRequest{
+    string UserID = 1;
+}
+
+message DebitHistoryResponse{
+    repeated  HistoryData DebitData = 1;
+}
+
+message UserWatchHourRequest{
+    string UserID = 1;
+}
+
+message UserWatchHourResponse{
+    int32  Hour  = 1;
+    string UserID = 2;
+}
+
+message ConferenceWatchHourRequest{
+    string ConferenceID = 1;
+}
+
+message ConferenceWatchHourResponse{
+    int32 Hour = 1;
+    repeated UserWatchHourResponse User = 2;
+}
+
+message GroupWatchHourRequest{
+    string GroupID = 1;
+}
+
+message GroupWatchHourResponse{
+    int32 Hour = 1;
+    repeated UserWatchHourResponse User = 2;
+}
+

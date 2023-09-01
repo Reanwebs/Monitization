@@ -19,7 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Monitization_HealthCheck_FullMethodName = "/monitization.Monitization/HealthCheck"
+	Monitization_HealthCheck_FullMethodName         = "/monitization.Monitization/HealthCheck"
+	Monitization_CreditHistory_FullMethodName       = "/monitization.Monitization/CreditHistory"
+	Monitization_DebitHistory_FullMethodName        = "/monitization.Monitization/DebitHistory"
+	Monitization_UserWatchHour_FullMethodName       = "/monitization.Monitization/UserWatchHour"
+	Monitization_ConferenceWatchHour_FullMethodName = "/monitization.Monitization/ConferenceWatchHour"
+	Monitization_GroupWatchHour_FullMethodName      = "/monitization.Monitization/GroupWatchHour"
 )
 
 // MonitizationClient is the client API for Monitization service.
@@ -27,6 +32,11 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MonitizationClient interface {
 	HealthCheck(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+	CreditHistory(ctx context.Context, in *CreditHistoryRequest, opts ...grpc.CallOption) (*CreditHistoryResponse, error)
+	DebitHistory(ctx context.Context, in *DebitHistoryRequest, opts ...grpc.CallOption) (*DebitHistoryResponse, error)
+	UserWatchHour(ctx context.Context, in *UserWatchHourRequest, opts ...grpc.CallOption) (*UserWatchHourResponse, error)
+	ConferenceWatchHour(ctx context.Context, in *ConferenceWatchHourRequest, opts ...grpc.CallOption) (*ConferenceWatchHourResponse, error)
+	GroupWatchHour(ctx context.Context, in *GroupWatchHourRequest, opts ...grpc.CallOption) (*GroupWatchHourResponse, error)
 }
 
 type monitizationClient struct {
@@ -46,11 +56,61 @@ func (c *monitizationClient) HealthCheck(ctx context.Context, in *Request, opts 
 	return out, nil
 }
 
+func (c *monitizationClient) CreditHistory(ctx context.Context, in *CreditHistoryRequest, opts ...grpc.CallOption) (*CreditHistoryResponse, error) {
+	out := new(CreditHistoryResponse)
+	err := c.cc.Invoke(ctx, Monitization_CreditHistory_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *monitizationClient) DebitHistory(ctx context.Context, in *DebitHistoryRequest, opts ...grpc.CallOption) (*DebitHistoryResponse, error) {
+	out := new(DebitHistoryResponse)
+	err := c.cc.Invoke(ctx, Monitization_DebitHistory_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *monitizationClient) UserWatchHour(ctx context.Context, in *UserWatchHourRequest, opts ...grpc.CallOption) (*UserWatchHourResponse, error) {
+	out := new(UserWatchHourResponse)
+	err := c.cc.Invoke(ctx, Monitization_UserWatchHour_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *monitizationClient) ConferenceWatchHour(ctx context.Context, in *ConferenceWatchHourRequest, opts ...grpc.CallOption) (*ConferenceWatchHourResponse, error) {
+	out := new(ConferenceWatchHourResponse)
+	err := c.cc.Invoke(ctx, Monitization_ConferenceWatchHour_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *monitizationClient) GroupWatchHour(ctx context.Context, in *GroupWatchHourRequest, opts ...grpc.CallOption) (*GroupWatchHourResponse, error) {
+	out := new(GroupWatchHourResponse)
+	err := c.cc.Invoke(ctx, Monitization_GroupWatchHour_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MonitizationServer is the server API for Monitization service.
 // All implementations must embed UnimplementedMonitizationServer
 // for forward compatibility
 type MonitizationServer interface {
 	HealthCheck(context.Context, *Request) (*Response, error)
+	CreditHistory(context.Context, *CreditHistoryRequest) (*CreditHistoryResponse, error)
+	DebitHistory(context.Context, *DebitHistoryRequest) (*DebitHistoryResponse, error)
+	UserWatchHour(context.Context, *UserWatchHourRequest) (*UserWatchHourResponse, error)
+	ConferenceWatchHour(context.Context, *ConferenceWatchHourRequest) (*ConferenceWatchHourResponse, error)
+	GroupWatchHour(context.Context, *GroupWatchHourRequest) (*GroupWatchHourResponse, error)
 	mustEmbedUnimplementedMonitizationServer()
 }
 
@@ -60,6 +120,21 @@ type UnimplementedMonitizationServer struct {
 
 func (UnimplementedMonitizationServer) HealthCheck(context.Context, *Request) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HealthCheck not implemented")
+}
+func (UnimplementedMonitizationServer) CreditHistory(context.Context, *CreditHistoryRequest) (*CreditHistoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreditHistory not implemented")
+}
+func (UnimplementedMonitizationServer) DebitHistory(context.Context, *DebitHistoryRequest) (*DebitHistoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DebitHistory not implemented")
+}
+func (UnimplementedMonitizationServer) UserWatchHour(context.Context, *UserWatchHourRequest) (*UserWatchHourResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserWatchHour not implemented")
+}
+func (UnimplementedMonitizationServer) ConferenceWatchHour(context.Context, *ConferenceWatchHourRequest) (*ConferenceWatchHourResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ConferenceWatchHour not implemented")
+}
+func (UnimplementedMonitizationServer) GroupWatchHour(context.Context, *GroupWatchHourRequest) (*GroupWatchHourResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GroupWatchHour not implemented")
 }
 func (UnimplementedMonitizationServer) mustEmbedUnimplementedMonitizationServer() {}
 
@@ -92,6 +167,96 @@ func _Monitization_HealthCheck_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Monitization_CreditHistory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreditHistoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MonitizationServer).CreditHistory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Monitization_CreditHistory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MonitizationServer).CreditHistory(ctx, req.(*CreditHistoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Monitization_DebitHistory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DebitHistoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MonitizationServer).DebitHistory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Monitization_DebitHistory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MonitizationServer).DebitHistory(ctx, req.(*DebitHistoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Monitization_UserWatchHour_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserWatchHourRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MonitizationServer).UserWatchHour(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Monitization_UserWatchHour_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MonitizationServer).UserWatchHour(ctx, req.(*UserWatchHourRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Monitization_ConferenceWatchHour_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ConferenceWatchHourRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MonitizationServer).ConferenceWatchHour(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Monitization_ConferenceWatchHour_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MonitizationServer).ConferenceWatchHour(ctx, req.(*ConferenceWatchHourRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Monitization_GroupWatchHour_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GroupWatchHourRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MonitizationServer).GroupWatchHour(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Monitization_GroupWatchHour_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MonitizationServer).GroupWatchHour(ctx, req.(*GroupWatchHourRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Monitization_ServiceDesc is the grpc.ServiceDesc for Monitization service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -102,6 +267,26 @@ var Monitization_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "HealthCheck",
 			Handler:    _Monitization_HealthCheck_Handler,
+		},
+		{
+			MethodName: "CreditHistory",
+			Handler:    _Monitization_CreditHistory_Handler,
+		},
+		{
+			MethodName: "DebitHistory",
+			Handler:    _Monitization_DebitHistory_Handler,
+		},
+		{
+			MethodName: "UserWatchHour",
+			Handler:    _Monitization_UserWatchHour_Handler,
+		},
+		{
+			MethodName: "ConferenceWatchHour",
+			Handler:    _Monitization_ConferenceWatchHour_Handler,
+		},
+		{
+			MethodName: "GroupWatchHour",
+			Handler:    _Monitization_GroupWatchHour_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

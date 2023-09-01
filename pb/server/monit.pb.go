@@ -72,7 +72,7 @@ type Response struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Result string `protobuf:"bytes,2,opt,name=Result,proto3" json:"Result,omitempty"`
+	Result string `protobuf:"bytes,1,opt,name=Result,proto3" json:"Result,omitempty"`
 }
 
 func (x *Response) Reset() {
@@ -114,6 +114,579 @@ func (x *Response) GetResult() string {
 	return ""
 }
 
+type HistoryData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Reason string `protobuf:"bytes,1,opt,name=Reason,proto3" json:"Reason,omitempty"`
+	Hour   int32  `protobuf:"varint,2,opt,name=Hour,proto3" json:"Hour,omitempty"`
+	Coin   int32  `protobuf:"varint,3,opt,name=Coin,proto3" json:"Coin,omitempty"`
+	Date   string `protobuf:"bytes,4,opt,name=Date,proto3" json:"Date,omitempty"`
+	Time   string `protobuf:"bytes,5,opt,name=Time,proto3" json:"Time,omitempty"`
+}
+
+func (x *HistoryData) Reset() {
+	*x = HistoryData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_server_monit_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *HistoryData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HistoryData) ProtoMessage() {}
+
+func (x *HistoryData) ProtoReflect() protoreflect.Message {
+	mi := &file_server_monit_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HistoryData.ProtoReflect.Descriptor instead.
+func (*HistoryData) Descriptor() ([]byte, []int) {
+	return file_server_monit_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *HistoryData) GetReason() string {
+	if x != nil {
+		return x.Reason
+	}
+	return ""
+}
+
+func (x *HistoryData) GetHour() int32 {
+	if x != nil {
+		return x.Hour
+	}
+	return 0
+}
+
+func (x *HistoryData) GetCoin() int32 {
+	if x != nil {
+		return x.Coin
+	}
+	return 0
+}
+
+func (x *HistoryData) GetDate() string {
+	if x != nil {
+		return x.Date
+	}
+	return ""
+}
+
+func (x *HistoryData) GetTime() string {
+	if x != nil {
+		return x.Time
+	}
+	return ""
+}
+
+type CreditHistoryRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserID string `protobuf:"bytes,1,opt,name=UserID,proto3" json:"UserID,omitempty"`
+}
+
+func (x *CreditHistoryRequest) Reset() {
+	*x = CreditHistoryRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_server_monit_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreditHistoryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreditHistoryRequest) ProtoMessage() {}
+
+func (x *CreditHistoryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_server_monit_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreditHistoryRequest.ProtoReflect.Descriptor instead.
+func (*CreditHistoryRequest) Descriptor() ([]byte, []int) {
+	return file_server_monit_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *CreditHistoryRequest) GetUserID() string {
+	if x != nil {
+		return x.UserID
+	}
+	return ""
+}
+
+type CreditHistoryResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	CreditData []*HistoryData `protobuf:"bytes,1,rep,name=CreditData,proto3" json:"CreditData,omitempty"`
+}
+
+func (x *CreditHistoryResponse) Reset() {
+	*x = CreditHistoryResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_server_monit_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreditHistoryResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreditHistoryResponse) ProtoMessage() {}
+
+func (x *CreditHistoryResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_server_monit_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreditHistoryResponse.ProtoReflect.Descriptor instead.
+func (*CreditHistoryResponse) Descriptor() ([]byte, []int) {
+	return file_server_monit_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *CreditHistoryResponse) GetCreditData() []*HistoryData {
+	if x != nil {
+		return x.CreditData
+	}
+	return nil
+}
+
+type DebitHistoryRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserID string `protobuf:"bytes,1,opt,name=UserID,proto3" json:"UserID,omitempty"`
+}
+
+func (x *DebitHistoryRequest) Reset() {
+	*x = DebitHistoryRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_server_monit_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DebitHistoryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DebitHistoryRequest) ProtoMessage() {}
+
+func (x *DebitHistoryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_server_monit_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DebitHistoryRequest.ProtoReflect.Descriptor instead.
+func (*DebitHistoryRequest) Descriptor() ([]byte, []int) {
+	return file_server_monit_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *DebitHistoryRequest) GetUserID() string {
+	if x != nil {
+		return x.UserID
+	}
+	return ""
+}
+
+type DebitHistoryResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	DebitData []*HistoryData `protobuf:"bytes,1,rep,name=DebitData,proto3" json:"DebitData,omitempty"`
+}
+
+func (x *DebitHistoryResponse) Reset() {
+	*x = DebitHistoryResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_server_monit_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DebitHistoryResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DebitHistoryResponse) ProtoMessage() {}
+
+func (x *DebitHistoryResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_server_monit_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DebitHistoryResponse.ProtoReflect.Descriptor instead.
+func (*DebitHistoryResponse) Descriptor() ([]byte, []int) {
+	return file_server_monit_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *DebitHistoryResponse) GetDebitData() []*HistoryData {
+	if x != nil {
+		return x.DebitData
+	}
+	return nil
+}
+
+type UserWatchHourRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserID string `protobuf:"bytes,1,opt,name=UserID,proto3" json:"UserID,omitempty"`
+}
+
+func (x *UserWatchHourRequest) Reset() {
+	*x = UserWatchHourRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_server_monit_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UserWatchHourRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserWatchHourRequest) ProtoMessage() {}
+
+func (x *UserWatchHourRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_server_monit_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserWatchHourRequest.ProtoReflect.Descriptor instead.
+func (*UserWatchHourRequest) Descriptor() ([]byte, []int) {
+	return file_server_monit_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *UserWatchHourRequest) GetUserID() string {
+	if x != nil {
+		return x.UserID
+	}
+	return ""
+}
+
+type UserWatchHourResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Hour   int32  `protobuf:"varint,1,opt,name=Hour,proto3" json:"Hour,omitempty"`
+	UserID string `protobuf:"bytes,2,opt,name=UserID,proto3" json:"UserID,omitempty"`
+}
+
+func (x *UserWatchHourResponse) Reset() {
+	*x = UserWatchHourResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_server_monit_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UserWatchHourResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserWatchHourResponse) ProtoMessage() {}
+
+func (x *UserWatchHourResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_server_monit_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserWatchHourResponse.ProtoReflect.Descriptor instead.
+func (*UserWatchHourResponse) Descriptor() ([]byte, []int) {
+	return file_server_monit_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *UserWatchHourResponse) GetHour() int32 {
+	if x != nil {
+		return x.Hour
+	}
+	return 0
+}
+
+func (x *UserWatchHourResponse) GetUserID() string {
+	if x != nil {
+		return x.UserID
+	}
+	return ""
+}
+
+type ConferenceWatchHourRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ConferenceID string `protobuf:"bytes,1,opt,name=ConferenceID,proto3" json:"ConferenceID,omitempty"`
+}
+
+func (x *ConferenceWatchHourRequest) Reset() {
+	*x = ConferenceWatchHourRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_server_monit_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ConferenceWatchHourRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConferenceWatchHourRequest) ProtoMessage() {}
+
+func (x *ConferenceWatchHourRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_server_monit_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ConferenceWatchHourRequest.ProtoReflect.Descriptor instead.
+func (*ConferenceWatchHourRequest) Descriptor() ([]byte, []int) {
+	return file_server_monit_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *ConferenceWatchHourRequest) GetConferenceID() string {
+	if x != nil {
+		return x.ConferenceID
+	}
+	return ""
+}
+
+type ConferenceWatchHourResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Hour int32                    `protobuf:"varint,1,opt,name=Hour,proto3" json:"Hour,omitempty"`
+	User []*UserWatchHourResponse `protobuf:"bytes,2,rep,name=User,proto3" json:"User,omitempty"`
+}
+
+func (x *ConferenceWatchHourResponse) Reset() {
+	*x = ConferenceWatchHourResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_server_monit_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ConferenceWatchHourResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConferenceWatchHourResponse) ProtoMessage() {}
+
+func (x *ConferenceWatchHourResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_server_monit_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ConferenceWatchHourResponse.ProtoReflect.Descriptor instead.
+func (*ConferenceWatchHourResponse) Descriptor() ([]byte, []int) {
+	return file_server_monit_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *ConferenceWatchHourResponse) GetHour() int32 {
+	if x != nil {
+		return x.Hour
+	}
+	return 0
+}
+
+func (x *ConferenceWatchHourResponse) GetUser() []*UserWatchHourResponse {
+	if x != nil {
+		return x.User
+	}
+	return nil
+}
+
+type GroupWatchHourRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	GroupID string `protobuf:"bytes,1,opt,name=GroupID,proto3" json:"GroupID,omitempty"`
+}
+
+func (x *GroupWatchHourRequest) Reset() {
+	*x = GroupWatchHourRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_server_monit_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GroupWatchHourRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GroupWatchHourRequest) ProtoMessage() {}
+
+func (x *GroupWatchHourRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_server_monit_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GroupWatchHourRequest.ProtoReflect.Descriptor instead.
+func (*GroupWatchHourRequest) Descriptor() ([]byte, []int) {
+	return file_server_monit_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *GroupWatchHourRequest) GetGroupID() string {
+	if x != nil {
+		return x.GroupID
+	}
+	return ""
+}
+
+type GroupWatchHourResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Hour int32                    `protobuf:"varint,1,opt,name=Hour,proto3" json:"Hour,omitempty"`
+	User []*UserWatchHourResponse `protobuf:"bytes,2,rep,name=User,proto3" json:"User,omitempty"`
+}
+
+func (x *GroupWatchHourResponse) Reset() {
+	*x = GroupWatchHourResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_server_monit_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GroupWatchHourResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GroupWatchHourResponse) ProtoMessage() {}
+
+func (x *GroupWatchHourResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_server_monit_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GroupWatchHourResponse.ProtoReflect.Descriptor instead.
+func (*GroupWatchHourResponse) Descriptor() ([]byte, []int) {
+	return file_server_monit_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GroupWatchHourResponse) GetHour() int32 {
+	if x != nil {
+		return x.Hour
+	}
+	return 0
+}
+
+func (x *GroupWatchHourResponse) GetUser() []*UserWatchHourResponse {
+	if x != nil {
+		return x.User
+	}
+	return nil
+}
+
 var File_server_monit_proto protoreflect.FileDescriptor
 
 var file_server_monit_proto_rawDesc = []byte{
@@ -122,14 +695,96 @@ var file_server_monit_proto_rawDesc = []byte{
 	0x6f, 0x6e, 0x22, 0x1d, 0x0a, 0x07, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a,
 	0x04, 0x44, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x44, 0x61, 0x74,
 	0x61, 0x22, 0x22, 0x0a, 0x08, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x16, 0x0a,
-	0x06, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x52,
-	0x65, 0x73, 0x75, 0x6c, 0x74, 0x32, 0x4e, 0x0a, 0x0c, 0x4d, 0x6f, 0x6e, 0x69, 0x74, 0x69, 0x7a,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x3e, 0x0a, 0x0b, 0x48, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x43,
-	0x68, 0x65, 0x63, 0x6b, 0x12, 0x15, 0x2e, 0x6d, 0x6f, 0x6e, 0x69, 0x74, 0x69, 0x7a, 0x61, 0x74,
-	0x69, 0x6f, 0x6e, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x6d, 0x6f,
-	0x6e, 0x69, 0x74, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x22, 0x00, 0x42, 0x0b, 0x5a, 0x09, 0x70, 0x62, 0x2f, 0x73, 0x65, 0x72, 0x76,
-	0x65, 0x72, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x06, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x52,
+	0x65, 0x73, 0x75, 0x6c, 0x74, 0x22, 0x75, 0x0a, 0x0b, 0x48, 0x69, 0x73, 0x74, 0x6f, 0x72, 0x79,
+	0x44, 0x61, 0x74, 0x61, 0x12, 0x16, 0x0a, 0x06, 0x52, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x52, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x12, 0x12, 0x0a, 0x04,
+	0x48, 0x6f, 0x75, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x48, 0x6f, 0x75, 0x72,
+	0x12, 0x12, 0x0a, 0x04, 0x43, 0x6f, 0x69, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04,
+	0x43, 0x6f, 0x69, 0x6e, 0x12, 0x12, 0x0a, 0x04, 0x44, 0x61, 0x74, 0x65, 0x18, 0x04, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x04, 0x44, 0x61, 0x74, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x54, 0x69, 0x6d, 0x65,
+	0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x54, 0x69, 0x6d, 0x65, 0x22, 0x2e, 0x0a, 0x14,
+	0x43, 0x72, 0x65, 0x64, 0x69, 0x74, 0x48, 0x69, 0x73, 0x74, 0x6f, 0x72, 0x79, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x22, 0x52, 0x0a, 0x15,
+	0x43, 0x72, 0x65, 0x64, 0x69, 0x74, 0x48, 0x69, 0x73, 0x74, 0x6f, 0x72, 0x79, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x39, 0x0a, 0x0a, 0x43, 0x72, 0x65, 0x64, 0x69, 0x74, 0x44,
+	0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x6d, 0x6f, 0x6e, 0x69,
+	0x74, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x48, 0x69, 0x73, 0x74, 0x6f, 0x72, 0x79,
+	0x44, 0x61, 0x74, 0x61, 0x52, 0x0a, 0x43, 0x72, 0x65, 0x64, 0x69, 0x74, 0x44, 0x61, 0x74, 0x61,
+	0x22, 0x2d, 0x0a, 0x13, 0x44, 0x65, 0x62, 0x69, 0x74, 0x48, 0x69, 0x73, 0x74, 0x6f, 0x72, 0x79,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x55, 0x73, 0x65, 0x72, 0x49,
+	0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x22,
+	0x4f, 0x0a, 0x14, 0x44, 0x65, 0x62, 0x69, 0x74, 0x48, 0x69, 0x73, 0x74, 0x6f, 0x72, 0x79, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x37, 0x0a, 0x09, 0x44, 0x65, 0x62, 0x69, 0x74,
+	0x44, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x6d, 0x6f, 0x6e,
+	0x69, 0x74, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x48, 0x69, 0x73, 0x74, 0x6f, 0x72,
+	0x79, 0x44, 0x61, 0x74, 0x61, 0x52, 0x09, 0x44, 0x65, 0x62, 0x69, 0x74, 0x44, 0x61, 0x74, 0x61,
+	0x22, 0x2e, 0x0a, 0x14, 0x55, 0x73, 0x65, 0x72, 0x57, 0x61, 0x74, 0x63, 0x68, 0x48, 0x6f, 0x75,
+	0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x55, 0x73, 0x65, 0x72,
+	0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44,
+	0x22, 0x43, 0x0a, 0x15, 0x55, 0x73, 0x65, 0x72, 0x57, 0x61, 0x74, 0x63, 0x68, 0x48, 0x6f, 0x75,
+	0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x48, 0x6f, 0x75,
+	0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x48, 0x6f, 0x75, 0x72, 0x12, 0x16, 0x0a,
+	0x06, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x55,
+	0x73, 0x65, 0x72, 0x49, 0x44, 0x22, 0x40, 0x0a, 0x1a, 0x43, 0x6f, 0x6e, 0x66, 0x65, 0x72, 0x65,
+	0x6e, 0x63, 0x65, 0x57, 0x61, 0x74, 0x63, 0x68, 0x48, 0x6f, 0x75, 0x72, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x22, 0x0a, 0x0c, 0x43, 0x6f, 0x6e, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63,
+	0x65, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x43, 0x6f, 0x6e, 0x66, 0x65,
+	0x72, 0x65, 0x6e, 0x63, 0x65, 0x49, 0x44, 0x22, 0x6a, 0x0a, 0x1b, 0x43, 0x6f, 0x6e, 0x66, 0x65,
+	0x72, 0x65, 0x6e, 0x63, 0x65, 0x57, 0x61, 0x74, 0x63, 0x68, 0x48, 0x6f, 0x75, 0x72, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x48, 0x6f, 0x75, 0x72, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x48, 0x6f, 0x75, 0x72, 0x12, 0x37, 0x0a, 0x04, 0x55, 0x73,
+	0x65, 0x72, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x23, 0x2e, 0x6d, 0x6f, 0x6e, 0x69, 0x74,
+	0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x57, 0x61, 0x74, 0x63,
+	0x68, 0x48, 0x6f, 0x75, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x52, 0x04, 0x55,
+	0x73, 0x65, 0x72, 0x22, 0x31, 0x0a, 0x15, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x57, 0x61, 0x74, 0x63,
+	0x68, 0x48, 0x6f, 0x75, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x18, 0x0a, 0x07,
+	0x47, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x47,
+	0x72, 0x6f, 0x75, 0x70, 0x49, 0x44, 0x22, 0x65, 0x0a, 0x16, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x57,
+	0x61, 0x74, 0x63, 0x68, 0x48, 0x6f, 0x75, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x12, 0x0a, 0x04, 0x48, 0x6f, 0x75, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04,
+	0x48, 0x6f, 0x75, 0x72, 0x12, 0x37, 0x0a, 0x04, 0x55, 0x73, 0x65, 0x72, 0x18, 0x02, 0x20, 0x03,
+	0x28, 0x0b, 0x32, 0x23, 0x2e, 0x6d, 0x6f, 0x6e, 0x69, 0x74, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x57, 0x61, 0x74, 0x63, 0x68, 0x48, 0x6f, 0x75, 0x72, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x52, 0x04, 0x55, 0x73, 0x65, 0x72, 0x32, 0xac, 0x04,
+	0x0a, 0x0c, 0x4d, 0x6f, 0x6e, 0x69, 0x74, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x3e,
+	0x0a, 0x0b, 0x48, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x12, 0x15, 0x2e,
+	0x6d, 0x6f, 0x6e, 0x69, 0x74, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x6d, 0x6f, 0x6e, 0x69, 0x74, 0x69, 0x7a, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x5a,
+	0x0a, 0x0d, 0x43, 0x72, 0x65, 0x64, 0x69, 0x74, 0x48, 0x69, 0x73, 0x74, 0x6f, 0x72, 0x79, 0x12,
+	0x22, 0x2e, 0x6d, 0x6f, 0x6e, 0x69, 0x74, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x43,
+	0x72, 0x65, 0x64, 0x69, 0x74, 0x48, 0x69, 0x73, 0x74, 0x6f, 0x72, 0x79, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x23, 0x2e, 0x6d, 0x6f, 0x6e, 0x69, 0x74, 0x69, 0x7a, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x2e, 0x43, 0x72, 0x65, 0x64, 0x69, 0x74, 0x48, 0x69, 0x73, 0x74, 0x6f, 0x72, 0x79,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x57, 0x0a, 0x0c, 0x44, 0x65,
+	0x62, 0x69, 0x74, 0x48, 0x69, 0x73, 0x74, 0x6f, 0x72, 0x79, 0x12, 0x21, 0x2e, 0x6d, 0x6f, 0x6e,
+	0x69, 0x74, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x44, 0x65, 0x62, 0x69, 0x74, 0x48,
+	0x69, 0x73, 0x74, 0x6f, 0x72, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x22, 0x2e,
+	0x6d, 0x6f, 0x6e, 0x69, 0x74, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x44, 0x65, 0x62,
+	0x69, 0x74, 0x48, 0x69, 0x73, 0x74, 0x6f, 0x72, 0x79, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x22, 0x00, 0x12, 0x5a, 0x0a, 0x0d, 0x55, 0x73, 0x65, 0x72, 0x57, 0x61, 0x74, 0x63, 0x68,
+	0x48, 0x6f, 0x75, 0x72, 0x12, 0x22, 0x2e, 0x6d, 0x6f, 0x6e, 0x69, 0x74, 0x69, 0x7a, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x57, 0x61, 0x74, 0x63, 0x68, 0x48, 0x6f, 0x75,
+	0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x23, 0x2e, 0x6d, 0x6f, 0x6e, 0x69, 0x74,
+	0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x57, 0x61, 0x74, 0x63,
+	0x68, 0x48, 0x6f, 0x75, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12,
+	0x6c, 0x0a, 0x13, 0x43, 0x6f, 0x6e, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x57, 0x61, 0x74,
+	0x63, 0x68, 0x48, 0x6f, 0x75, 0x72, 0x12, 0x28, 0x2e, 0x6d, 0x6f, 0x6e, 0x69, 0x74, 0x69, 0x7a,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x43, 0x6f, 0x6e, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65,
+	0x57, 0x61, 0x74, 0x63, 0x68, 0x48, 0x6f, 0x75, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x1a, 0x29, 0x2e, 0x6d, 0x6f, 0x6e, 0x69, 0x74, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e,
+	0x43, 0x6f, 0x6e, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x57, 0x61, 0x74, 0x63, 0x68, 0x48,
+	0x6f, 0x75, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x5d, 0x0a,
+	0x0e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x57, 0x61, 0x74, 0x63, 0x68, 0x48, 0x6f, 0x75, 0x72, 0x12,
+	0x23, 0x2e, 0x6d, 0x6f, 0x6e, 0x69, 0x74, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x47,
+	0x72, 0x6f, 0x75, 0x70, 0x57, 0x61, 0x74, 0x63, 0x68, 0x48, 0x6f, 0x75, 0x72, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x24, 0x2e, 0x6d, 0x6f, 0x6e, 0x69, 0x74, 0x69, 0x7a, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x2e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x57, 0x61, 0x74, 0x63, 0x68, 0x48, 0x6f,
+	0x75, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x42, 0x0b, 0x5a, 0x09,
+	0x70, 0x62, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -144,19 +799,44 @@ func file_server_monit_proto_rawDescGZIP() []byte {
 	return file_server_monit_proto_rawDescData
 }
 
-var file_server_monit_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_server_monit_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_server_monit_proto_goTypes = []interface{}{
-	(*Request)(nil),  // 0: monitization.Request
-	(*Response)(nil), // 1: monitization.Response
+	(*Request)(nil),                     // 0: monitization.Request
+	(*Response)(nil),                    // 1: monitization.Response
+	(*HistoryData)(nil),                 // 2: monitization.HistoryData
+	(*CreditHistoryRequest)(nil),        // 3: monitization.CreditHistoryRequest
+	(*CreditHistoryResponse)(nil),       // 4: monitization.CreditHistoryResponse
+	(*DebitHistoryRequest)(nil),         // 5: monitization.DebitHistoryRequest
+	(*DebitHistoryResponse)(nil),        // 6: monitization.DebitHistoryResponse
+	(*UserWatchHourRequest)(nil),        // 7: monitization.UserWatchHourRequest
+	(*UserWatchHourResponse)(nil),       // 8: monitization.UserWatchHourResponse
+	(*ConferenceWatchHourRequest)(nil),  // 9: monitization.ConferenceWatchHourRequest
+	(*ConferenceWatchHourResponse)(nil), // 10: monitization.ConferenceWatchHourResponse
+	(*GroupWatchHourRequest)(nil),       // 11: monitization.GroupWatchHourRequest
+	(*GroupWatchHourResponse)(nil),      // 12: monitization.GroupWatchHourResponse
 }
 var file_server_monit_proto_depIdxs = []int32{
-	0, // 0: monitization.Monitization.HealthCheck:input_type -> monitization.Request
-	1, // 1: monitization.Monitization.HealthCheck:output_type -> monitization.Response
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	2,  // 0: monitization.CreditHistoryResponse.CreditData:type_name -> monitization.HistoryData
+	2,  // 1: monitization.DebitHistoryResponse.DebitData:type_name -> monitization.HistoryData
+	8,  // 2: monitization.ConferenceWatchHourResponse.User:type_name -> monitization.UserWatchHourResponse
+	8,  // 3: monitization.GroupWatchHourResponse.User:type_name -> monitization.UserWatchHourResponse
+	0,  // 4: monitization.Monitization.HealthCheck:input_type -> monitization.Request
+	3,  // 5: monitization.Monitization.CreditHistory:input_type -> monitization.CreditHistoryRequest
+	5,  // 6: monitization.Monitization.DebitHistory:input_type -> monitization.DebitHistoryRequest
+	7,  // 7: monitization.Monitization.UserWatchHour:input_type -> monitization.UserWatchHourRequest
+	9,  // 8: monitization.Monitization.ConferenceWatchHour:input_type -> monitization.ConferenceWatchHourRequest
+	11, // 9: monitization.Monitization.GroupWatchHour:input_type -> monitization.GroupWatchHourRequest
+	1,  // 10: monitization.Monitization.HealthCheck:output_type -> monitization.Response
+	4,  // 11: monitization.Monitization.CreditHistory:output_type -> monitization.CreditHistoryResponse
+	6,  // 12: monitization.Monitization.DebitHistory:output_type -> monitization.DebitHistoryResponse
+	8,  // 13: monitization.Monitization.UserWatchHour:output_type -> monitization.UserWatchHourResponse
+	10, // 14: monitization.Monitization.ConferenceWatchHour:output_type -> monitization.ConferenceWatchHourResponse
+	12, // 15: monitization.Monitization.GroupWatchHour:output_type -> monitization.GroupWatchHourResponse
+	10, // [10:16] is the sub-list for method output_type
+	4,  // [4:10] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_server_monit_proto_init() }
@@ -189,6 +869,138 @@ func file_server_monit_proto_init() {
 				return nil
 			}
 		}
+		file_server_monit_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*HistoryData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_server_monit_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CreditHistoryRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_server_monit_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CreditHistoryResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_server_monit_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DebitHistoryRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_server_monit_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DebitHistoryResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_server_monit_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UserWatchHourRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_server_monit_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UserWatchHourResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_server_monit_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ConferenceWatchHourRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_server_monit_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ConferenceWatchHourResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_server_monit_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GroupWatchHourRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_server_monit_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GroupWatchHourResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -196,7 +1008,7 @@ func file_server_monit_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_server_monit_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
