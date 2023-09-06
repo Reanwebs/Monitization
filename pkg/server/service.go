@@ -25,11 +25,11 @@ func (m *monitizationServer) HealthCheck(ctx context.Context, req *pb.Request) (
 
 }
 
-func (m *monitizationServer) CreditHistory(ctx context.Context, req *pb.CreditHistoryRequest) (*pb.CreditHistoryResponse, error) {
+func (m *monitizationServer) UserRewardHistory(ctx context.Context, req *pb.UserRewardHistoryRequest) (*pb.UserRewardHistoryResponse, error) {
 	return nil, nil
 }
 
-func (m *monitizationServer) DebitHistory(ctx context.Context, req *pb.DebitHistoryRequest) (*pb.DebitHistoryResponse, error) {
+func (m *monitizationServer) GroupRewardHistory(ctx context.Context, req *pb.GroupRewardHistoryRequest) (*pb.GroupRewardHistoryResponse, error) {
 	return nil, nil
 }
 
