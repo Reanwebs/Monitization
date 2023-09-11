@@ -13,7 +13,7 @@ type conferenceClient struct {
 	Client pb.ConferenceClient
 }
 
-func InitClient(c config.Config) (ConferenceClient, error) {
+func InitConferenceClient(c config.Config) (ConferenceClient, error) {
 	clientCon, err := grpc.Dial(c.ConfUrl, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		return nil, err

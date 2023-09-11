@@ -1,19 +1,24 @@
 package di
 
 import (
-	client "monit/pkg/client/conference"
+	authClient "monit/pkg/client/auth"
+	confClient "monit/pkg/client/conference"
 	"monit/pkg/common/config"
 	"monit/pkg/server"
 )
 
 func InitializeAPI(config config.Config) (*server.Server, error) {
 
-	conferenceClient, err := client.InitClient(config)
+	conferenceClient, err := confClient.InitConferenceClient(config)
 	if err != nil {
 		return nil, err
 	}
 
-	usecase := server.NewMonitizationServer(conferenceClient)
+	authClient, err := authClient.InitAuthClient(config)
+	if err != nil {
+		return nil, err
+	}
+	usecase := server.NewMonitizationServer(conferenceClient, authClient)
 
 	server := server.NewGrpcServer(config, usecase)
 

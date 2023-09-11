@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option go_package = "pb/client/auth";
+
+package auth;
+
+service Auth{
+    rpc HealthCheck(Request) returns (Response){}
+    rpc AddCoins(AddCoinsRequest) returns (AddCoinsResponse){}
+}
+
+message Request{
+    string Data = 1;
+}
+
+message Response{
+    string Result =1;
+}
+
+message AddCoinsRequest{
+    string UserID = 1;
+    int32  Coins  = 2;
+}
+
+message AddCoinsResponse{
+    string Result = 1;
+}
