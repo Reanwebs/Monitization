@@ -2,7 +2,7 @@ package utils
 
 import "fmt"
 
-func CoinReward(Minutes int32, ConferenceType string) (int32, error) {
+func CoinReward(Minutes int32, ConferenceType string) (uint, error) {
 	var coins int32
 
 	switch ConferenceType {
@@ -19,6 +19,13 @@ func CoinReward(Minutes int32, ConferenceType string) (int32, error) {
 		return 0, fmt.Errorf("unknown ConferenceType: %s", ConferenceType)
 	}
 
-	return coins, nil
+	return uint(coins), nil
 
+}
+
+func CoinRewardCreator(Type string) (uint, error) {
+	if Type == "Referal" {
+		return 10, nil
+	}
+	return 0, nil
 }
