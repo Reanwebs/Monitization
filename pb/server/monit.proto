@@ -9,8 +9,12 @@ import "google/protobuf/timestamp.proto";
 
 service Monitization{
     rpc HealthCheck(Request) returns (Response){}
+    rpc CreateWallet(CreateWalletRequest)returns(CreateWalletResponse){}
+    rpc GetWallet(GetWalletRequest)returns(GetWalletResponse){}
+    rpc UpdateWallet(UpdateWalletRequest)returns(UpdateWalletResponse){}
     rpc ParticipationReward(ParticipationRewardRequest) returns(ParticipationRewardResponse){}
     rpc UserRewardHistory(UserRewardHistoryRequest) returns (UserRewardHistoryResponse){}
+
     rpc GroupRewardHistory(GroupRewardHistoryRequest) returns (GroupRewardHistoryResponse){}
     rpc UserWatchHour(UserWatchHourRequest) returns (UserWatchHourResponse){}
     rpc ConferenceWatchHour(ConferenceWatchHourRequest) returns (ConferenceWatchHourResponse){}
@@ -23,6 +27,33 @@ message Request{
 }
 
 message Response{
+    string Result = 1;
+}
+
+message CreateWalletRequest{
+    string UserID = 1;
+}
+
+message CreateWalletResponse{
+    string Result =1;
+}
+
+message GetWalletRequest{
+    string UserID = 1;
+}
+
+message GetWalletResponse{
+    int32 Coins = 1;
+}
+
+message UpdateWalletRequest{
+    string UserID   = 1;
+    string Type     = 2;
+    string Reason   = 3;
+    string UserName = 4;
+}
+
+message UpdateWalletResponse{
     string Result = 1;
 }
 
@@ -53,7 +84,7 @@ message UserRewardHistoryRequest{
 
 message UserRewardHistory {
     string UserID = 1;
-    string reward_type = 2;
+    string reward_reason = 2;
     string transaction_type = 3;
     uint32 coin_count = 4;
     google.protobuf.Timestamp time = 5;

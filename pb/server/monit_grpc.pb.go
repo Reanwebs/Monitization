@@ -20,6 +20,9 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	Monitization_HealthCheck_FullMethodName         = "/monitization.Monitization/HealthCheck"
+	Monitization_CreateWallet_FullMethodName        = "/monitization.Monitization/CreateWallet"
+	Monitization_GetWallet_FullMethodName           = "/monitization.Monitization/GetWallet"
+	Monitization_UpdateWallet_FullMethodName        = "/monitization.Monitization/UpdateWallet"
 	Monitization_ParticipationReward_FullMethodName = "/monitization.Monitization/ParticipationReward"
 	Monitization_UserRewardHistory_FullMethodName   = "/monitization.Monitization/UserRewardHistory"
 	Monitization_GroupRewardHistory_FullMethodName  = "/monitization.Monitization/GroupRewardHistory"
@@ -33,6 +36,9 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MonitizationClient interface {
 	HealthCheck(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+	CreateWallet(ctx context.Context, in *CreateWalletRequest, opts ...grpc.CallOption) (*CreateWalletResponse, error)
+	GetWallet(ctx context.Context, in *GetWalletRequest, opts ...grpc.CallOption) (*GetWalletResponse, error)
+	UpdateWallet(ctx context.Context, in *UpdateWalletRequest, opts ...grpc.CallOption) (*UpdateWalletResponse, error)
 	ParticipationReward(ctx context.Context, in *ParticipationRewardRequest, opts ...grpc.CallOption) (*ParticipationRewardResponse, error)
 	UserRewardHistory(ctx context.Context, in *UserRewardHistoryRequest, opts ...grpc.CallOption) (*UserRewardHistoryResponse, error)
 	GroupRewardHistory(ctx context.Context, in *GroupRewardHistoryRequest, opts ...grpc.CallOption) (*GroupRewardHistoryResponse, error)
@@ -52,6 +58,33 @@ func NewMonitizationClient(cc grpc.ClientConnInterface) MonitizationClient {
 func (c *monitizationClient) HealthCheck(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
 	out := new(Response)
 	err := c.cc.Invoke(ctx, Monitization_HealthCheck_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *monitizationClient) CreateWallet(ctx context.Context, in *CreateWalletRequest, opts ...grpc.CallOption) (*CreateWalletResponse, error) {
+	out := new(CreateWalletResponse)
+	err := c.cc.Invoke(ctx, Monitization_CreateWallet_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *monitizationClient) GetWallet(ctx context.Context, in *GetWalletRequest, opts ...grpc.CallOption) (*GetWalletResponse, error) {
+	out := new(GetWalletResponse)
+	err := c.cc.Invoke(ctx, Monitization_GetWallet_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *monitizationClient) UpdateWallet(ctx context.Context, in *UpdateWalletRequest, opts ...grpc.CallOption) (*UpdateWalletResponse, error) {
+	out := new(UpdateWalletResponse)
+	err := c.cc.Invoke(ctx, Monitization_UpdateWallet_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -117,6 +150,9 @@ func (c *monitizationClient) GroupWatchHour(ctx context.Context, in *GroupWatchH
 // for forward compatibility
 type MonitizationServer interface {
 	HealthCheck(context.Context, *Request) (*Response, error)
+	CreateWallet(context.Context, *CreateWalletRequest) (*CreateWalletResponse, error)
+	GetWallet(context.Context, *GetWalletRequest) (*GetWalletResponse, error)
+	UpdateWallet(context.Context, *UpdateWalletRequest) (*UpdateWalletResponse, error)
 	ParticipationReward(context.Context, *ParticipationRewardRequest) (*ParticipationRewardResponse, error)
 	UserRewardHistory(context.Context, *UserRewardHistoryRequest) (*UserRewardHistoryResponse, error)
 	GroupRewardHistory(context.Context, *GroupRewardHistoryRequest) (*GroupRewardHistoryResponse, error)
@@ -132,6 +168,15 @@ type UnimplementedMonitizationServer struct {
 
 func (UnimplementedMonitizationServer) HealthCheck(context.Context, *Request) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HealthCheck not implemented")
+}
+func (UnimplementedMonitizationServer) CreateWallet(context.Context, *CreateWalletRequest) (*CreateWalletResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateWallet not implemented")
+}
+func (UnimplementedMonitizationServer) GetWallet(context.Context, *GetWalletRequest) (*GetWalletResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetWallet not implemented")
+}
+func (UnimplementedMonitizationServer) UpdateWallet(context.Context, *UpdateWalletRequest) (*UpdateWalletResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateWallet not implemented")
 }
 func (UnimplementedMonitizationServer) ParticipationReward(context.Context, *ParticipationRewardRequest) (*ParticipationRewardResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ParticipationReward not implemented")
@@ -178,6 +223,60 @@ func _Monitization_HealthCheck_Handler(srv interface{}, ctx context.Context, dec
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MonitizationServer).HealthCheck(ctx, req.(*Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Monitization_CreateWallet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateWalletRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MonitizationServer).CreateWallet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Monitization_CreateWallet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MonitizationServer).CreateWallet(ctx, req.(*CreateWalletRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Monitization_GetWallet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetWalletRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MonitizationServer).GetWallet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Monitization_GetWallet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MonitizationServer).GetWallet(ctx, req.(*GetWalletRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Monitization_UpdateWallet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateWalletRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MonitizationServer).UpdateWallet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Monitization_UpdateWallet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MonitizationServer).UpdateWallet(ctx, req.(*UpdateWalletRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -300,6 +399,18 @@ var Monitization_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "HealthCheck",
 			Handler:    _Monitization_HealthCheck_Handler,
+		},
+		{
+			MethodName: "CreateWallet",
+			Handler:    _Monitization_CreateWallet_Handler,
+		},
+		{
+			MethodName: "GetWallet",
+			Handler:    _Monitization_GetWallet_Handler,
+		},
+		{
+			MethodName: "UpdateWallet",
+			Handler:    _Monitization_UpdateWallet_Handler,
 		},
 		{
 			MethodName: "ParticipationReward",
