@@ -52,7 +52,7 @@ func (m *monitizationServer) ParticipationReward(ctx context.Context, req *pb.Pa
 	}
 	resp := &pb.ParticipationRewardResponse{
 		Result:    "Reward added succesfuly",
-		CoinCount: coins,
+		CoinCount: int32(coins),
 	}
 	return resp, nil
 }
@@ -73,6 +73,10 @@ func (m *monitizationServer) GetWallet(ctx context.Context, req *pb.GetWalletReq
 }
 
 func (m *monitizationServer) UpdateWallet(ctx context.Context, req *pb.UpdateWalletRequest) (*pb.UpdateWalletResponse, error) {
+	coins, err := utils.CoinRewardCreator(req.Reason)
+	if err != nil {
+		return nil, err
+	}
 	var rewardType string
 	if req.Reason == "Referal" {
 		rewardType = "Credit"
@@ -84,12 +88,12 @@ func (m *monitizationServer) UpdateWallet(ctx context.Context, req *pb.UpdateWal
 		RewardReason:    req.Reason,
 		TransactionType: rewardType,
 		Referal:         req.UserName,
-		CoinCount:       10,
+		CoinCount:       coins,
 	}
 	if err := m.userRepo.UpdateWalletHistory(input); err != nil {
 		return nil, err
 	}
-	if err := m.userRepo.UpdateWallet(req.UserID, 10); err != nil {
+	if err := m.userRepo.UpdateWallet(req.UserID, coins); err != nil {
 		return nil, err
 	}
 	return &pb.UpdateWalletResponse{Result: "Wallet Updated"}, nil
