@@ -3,7 +3,6 @@ package server
 import (
 	"context"
 	"log"
-	"monit/pb/client/auth"
 	pb "monit/pb/server"
 	authClient "monit/pkg/client/auth"
 	confClient "monit/pkg/client/conference"
@@ -39,12 +38,20 @@ func (m *monitizationServer) ParticipationReward(ctx context.Context, req *pb.Pa
 	if err != nil {
 		return nil, err
 	}
-	authResp, err := m.authClinet.AddCoins(ctx, &auth.AddCoinsRequest{UserID: req.UserID, Coins: coins})
-	if err != nil {
+	input := utils.UserRewardHistory{
+		UserID:          req.UserID,
+		RewardReason:    "WatchHour",
+		TransactionType: "Credit",
+		CoinCount:       uint(coins),
+	}
+	if err := m.userRepo.UpdateWalletHistory(input); err != nil {
+		return nil, err
+	}
+	if err := m.userRepo.UpdateWallet(req.UserID, uint(coins)); err != nil {
 		return nil, err
 	}
 	resp := &pb.ParticipationRewardResponse{
-		Result:    "Reward added succesfuly" + authResp.Result,
+		Result:    "Reward added succesfuly",
 		CoinCount: coins,
 	}
 	return resp, nil
@@ -77,6 +84,7 @@ func (m *monitizationServer) UpdateWallet(ctx context.Context, req *pb.UpdateWal
 		RewardReason:    req.Reason,
 		TransactionType: rewardType,
 		Referal:         req.UserName,
+		CoinCount:       10,
 	}
 	if err := m.userRepo.UpdateWalletHistory(input); err != nil {
 		return nil, err
