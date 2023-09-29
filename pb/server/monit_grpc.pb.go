@@ -25,6 +25,7 @@ const (
 	Monitization_UpdateWallet_FullMethodName        = "/monitization.Monitization/UpdateWallet"
 	Monitization_ParticipationReward_FullMethodName = "/monitization.Monitization/ParticipationReward"
 	Monitization_UserRewardHistory_FullMethodName   = "/monitization.Monitization/UserRewardHistory"
+	Monitization_VideoReward_FullMethodName         = "/monitization.Monitization/VideoReward"
 	Monitization_GroupRewardHistory_FullMethodName  = "/monitization.Monitization/GroupRewardHistory"
 	Monitization_UserWatchHour_FullMethodName       = "/monitization.Monitization/UserWatchHour"
 	Monitization_ConferenceWatchHour_FullMethodName = "/monitization.Monitization/ConferenceWatchHour"
@@ -41,6 +42,7 @@ type MonitizationClient interface {
 	UpdateWallet(ctx context.Context, in *UpdateWalletRequest, opts ...grpc.CallOption) (*UpdateWalletResponse, error)
 	ParticipationReward(ctx context.Context, in *ParticipationRewardRequest, opts ...grpc.CallOption) (*ParticipationRewardResponse, error)
 	UserRewardHistory(ctx context.Context, in *UserRewardHistoryRequest, opts ...grpc.CallOption) (*UserRewardHistoryResponse, error)
+	VideoReward(ctx context.Context, in *VideoRewardRequest, opts ...grpc.CallOption) (*VideoRewardResponse, error)
 	GroupRewardHistory(ctx context.Context, in *GroupRewardHistoryRequest, opts ...grpc.CallOption) (*GroupRewardHistoryResponse, error)
 	UserWatchHour(ctx context.Context, in *UserWatchHourRequest, opts ...grpc.CallOption) (*UserWatchHourResponse, error)
 	ConferenceWatchHour(ctx context.Context, in *ConferenceWatchHourRequest, opts ...grpc.CallOption) (*ConferenceWatchHourResponse, error)
@@ -109,6 +111,15 @@ func (c *monitizationClient) UserRewardHistory(ctx context.Context, in *UserRewa
 	return out, nil
 }
 
+func (c *monitizationClient) VideoReward(ctx context.Context, in *VideoRewardRequest, opts ...grpc.CallOption) (*VideoRewardResponse, error) {
+	out := new(VideoRewardResponse)
+	err := c.cc.Invoke(ctx, Monitization_VideoReward_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *monitizationClient) GroupRewardHistory(ctx context.Context, in *GroupRewardHistoryRequest, opts ...grpc.CallOption) (*GroupRewardHistoryResponse, error) {
 	out := new(GroupRewardHistoryResponse)
 	err := c.cc.Invoke(ctx, Monitization_GroupRewardHistory_FullMethodName, in, out, opts...)
@@ -155,6 +166,7 @@ type MonitizationServer interface {
 	UpdateWallet(context.Context, *UpdateWalletRequest) (*UpdateWalletResponse, error)
 	ParticipationReward(context.Context, *ParticipationRewardRequest) (*ParticipationRewardResponse, error)
 	UserRewardHistory(context.Context, *UserRewardHistoryRequest) (*UserRewardHistoryResponse, error)
+	VideoReward(context.Context, *VideoRewardRequest) (*VideoRewardResponse, error)
 	GroupRewardHistory(context.Context, *GroupRewardHistoryRequest) (*GroupRewardHistoryResponse, error)
 	UserWatchHour(context.Context, *UserWatchHourRequest) (*UserWatchHourResponse, error)
 	ConferenceWatchHour(context.Context, *ConferenceWatchHourRequest) (*ConferenceWatchHourResponse, error)
@@ -183,6 +195,9 @@ func (UnimplementedMonitizationServer) ParticipationReward(context.Context, *Par
 }
 func (UnimplementedMonitizationServer) UserRewardHistory(context.Context, *UserRewardHistoryRequest) (*UserRewardHistoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserRewardHistory not implemented")
+}
+func (UnimplementedMonitizationServer) VideoReward(context.Context, *VideoRewardRequest) (*VideoRewardResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VideoReward not implemented")
 }
 func (UnimplementedMonitizationServer) GroupRewardHistory(context.Context, *GroupRewardHistoryRequest) (*GroupRewardHistoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GroupRewardHistory not implemented")
@@ -317,6 +332,24 @@ func _Monitization_UserRewardHistory_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Monitization_VideoReward_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VideoRewardRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MonitizationServer).VideoReward(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Monitization_VideoReward_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MonitizationServer).VideoReward(ctx, req.(*VideoRewardRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Monitization_GroupRewardHistory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GroupRewardHistoryRequest)
 	if err := dec(in); err != nil {
@@ -419,6 +452,10 @@ var Monitization_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserRewardHistory",
 			Handler:    _Monitization_UserRewardHistory_Handler,
+		},
+		{
+			MethodName: "VideoReward",
+			Handler:    _Monitization_VideoReward_Handler,
 		},
 		{
 			MethodName: "GroupRewardHistory",

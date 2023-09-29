@@ -23,6 +23,7 @@ func NewMonitizationServer(confClient confClient.ConferenceClient, authClient au
 	return &monitizationServer{
 		confClient: confClient,
 		authClinet: authClient,
+		userRepo:   repo,
 	}
 }
 
@@ -73,7 +74,7 @@ func (m *monitizationServer) GetWallet(ctx context.Context, req *pb.GetWalletReq
 }
 
 func (m *monitizationServer) UpdateWallet(ctx context.Context, req *pb.UpdateWalletRequest) (*pb.UpdateWalletResponse, error) {
-	coins, err := utils.CoinRewardCreator(req.Reason)
+	coins, err := utils.CoinRewardCreator(utils.RewardCreator{Reason: req.Reason})
 	if err != nil {
 		return nil, err
 	}
@@ -88,12 +89,12 @@ func (m *monitizationServer) UpdateWallet(ctx context.Context, req *pb.UpdateWal
 		RewardReason:    req.Reason,
 		TransactionType: rewardType,
 		Referal:         req.UserName,
-		CoinCount:       coins,
+		CoinCount:       uint(coins),
 	}
 	if err := m.userRepo.UpdateWalletHistory(input); err != nil {
 		return nil, err
 	}
-	if err := m.userRepo.UpdateWallet(req.UserID, coins); err != nil {
+	if err := m.userRepo.UpdateWallet(req.UserID, uint(coins)); err != nil {
 		return nil, err
 	}
 	return &pb.UpdateWalletResponse{Result: "Wallet Updated"}, nil
@@ -121,10 +122,32 @@ func (m *monitizationServer) UserRewardHistory(ctx context.Context, req *pb.User
 			TransactionType: item.TransactionType,
 			CoinCount:       uint32(item.CoinCount),
 			Time:            timestamppb.New(item.Time),
+			ReferalName:     item.Referal,
 		}
 		response.Result = append(response.Result, pbItem)
 	}
 	return response, nil
+}
+
+func (m *monitizationServer) VideoReward(ctx context.Context, req *pb.VideoRewardRequest) (*pb.VideoRewardResponse, error) {
+	coins, err := utils.CoinRewardCreator(utils.RewardCreator{Reason: req.Reason, Count: uint(req.Views), Coins: uint(req.PaidCoins)})
+	if err != nil {
+		return nil, err
+	}
+	input := utils.UserRewardHistory{
+		UserID:          req.UserID,
+		RewardReason:    req.Reason,
+		TransactionType: "Credit",
+		Referal:         req.VideoID,
+		CoinCount:       uint(coins),
+	}
+	if err := m.userRepo.UpdateWalletHistory(input); err != nil {
+		return nil, err
+	}
+	if err := m.userRepo.UpdateWallet(req.UserID, uint(coins)); err != nil {
+		return nil, err
+	}
+	return &pb.VideoRewardResponse{Result: "Reward added"}, nil
 }
 
 func (m *monitizationServer) GroupRewardHistory(ctx context.Context, req *pb.GroupRewardHistoryRequest) (*pb.GroupRewardHistoryResponse, error) {

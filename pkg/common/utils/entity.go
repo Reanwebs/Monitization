@@ -24,3 +24,9 @@ type UserRewardHistory struct {
 	CoinCount       uint
 	Time            time.Time
 }
+
+type RewardCreator struct {
+	Reason string
+	Count  uint
+	Coins  uint
+}
