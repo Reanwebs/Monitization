@@ -26,11 +26,11 @@ func CoinReward(Minutes int32, ConferenceType string) (uint, error) {
 }
 
 func CoinRewardCreator(input RewardCreator) (float32, error) {
-	if input.Reason == "Referal" {
+	if input.Reason == "referal" {
 		return 10, nil
-	} else if input.Reason == "Views" {
+	} else if input.Reason == "views" {
 		return (float32(input.Count) * 0.1), nil
-	} else if input.Reason == "Paid" {
+	} else if input.Reason == "paid" {
 		return float32(input.Coins) - (float32(input.Coins) / 100), nil
 	}
 	return 0, nil
