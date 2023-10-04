@@ -15,12 +15,14 @@ service Monitization{
     rpc ParticipationReward(ParticipationRewardRequest) returns(ParticipationRewardResponse){}
     rpc UserRewardHistory(UserRewardHistoryRequest) returns (UserRewardHistoryResponse){}
     rpc VideoReward(VideoRewardRequest) returns (VideoRewardResponse){}
+    rpc ExclusiveContent(ExclusiveContentRequest) returns (ExclusiveContentResponse) {}
 
     rpc GroupRewardHistory(GroupRewardHistoryRequest) returns (GroupRewardHistoryResponse){}
     rpc UserWatchHour(UserWatchHourRequest) returns (UserWatchHourResponse){}
     rpc ConferenceWatchHour(ConferenceWatchHourRequest) returns (ConferenceWatchHourResponse){}
     rpc GroupWatchHour(GroupWatchHourRequest) returns (GroupWatchHourResponse){}
 }
+
 
 
 message Request{
@@ -106,6 +108,18 @@ message VideoRewardRequest{
 
 message VideoRewardResponse{
     string Result = 1;
+}
+
+message ExclusiveContentRequest{
+  string UserID     = 1;
+  string VideoID    = 2;
+  string Reason     = 3;
+  string  owner     = 4;
+  uint32  PaidCoins = 5;
+}
+
+message ExclusiveContentResponse {
+  string Result = 1;
 }
 
 message GroupRewardHistoryRequest{
