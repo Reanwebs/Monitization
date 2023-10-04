@@ -1,6 +1,8 @@
 package utils
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func CoinReward(Minutes int32, ConferenceType string) (uint, error) {
 	var coins int32
@@ -23,9 +25,13 @@ func CoinReward(Minutes int32, ConferenceType string) (uint, error) {
 
 }
 
-func CoinRewardCreator(Type string) (uint, error) {
-	if Type == "Referal" {
+func CoinRewardCreator(input RewardCreator) (float32, error) {
+	if input.Reason == "referal" {
 		return 10, nil
+	} else if input.Reason == "views" {
+		return (float32(input.Count) * 0.1), nil
+	} else if input.Reason == "paid" {
+		return float32(input.Coins) - (float32(input.Coins) / 100), nil
 	}
 	return 0, nil
 }
