@@ -133,6 +133,12 @@ func (m *monitizationServer) UserRewardHistory(ctx context.Context, req *pb.User
 		}
 		response.Result = append(response.Result, pbItem)
 	}
+	wallet, err := m.userRepo.GetWallet(req.UserID)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+	response.Coins = int32(wallet.Coins)
 	return response, nil
 }
 
