@@ -114,9 +114,6 @@ message VideoRewardResponse{
 message ExclusiveContentRequest{
   string UserID     = 1;
   string VideoID    = 2;
-  string Reason     = 3;
-  string  owner     = 4;
-  uint32  PaidCoins = 5;
 }
 
 message ExclusiveContentResponse {

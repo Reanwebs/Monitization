@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "pb/client/stream";
+
+service VideoService {
+    rpc HealthCheck(Request) returns (Response);
+    rpc VideoDetails(VideoDetailsRequest) returns (VideoDetailsResponse){}
+}
+
+message Request {
+    string data = 1;
+}
+
+message Response {
+    string result = 1;
+}
+
+message VideoDetailsRequest{
+    string VideoID = 1;
+}
+
+message VideoDetailsResponse{
+    string OwnerID = 1;
+    int32 Coins   = 2;
+    string Title   = 3;
+}

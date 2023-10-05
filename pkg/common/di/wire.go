@@ -3,6 +3,7 @@ package di
 import (
 	authClient "monit/pkg/client/auth"
 	confClient "monit/pkg/client/conference"
+	videoClient "monit/pkg/client/stream"
 	"monit/pkg/common/config"
 	"monit/pkg/repository"
 	"monit/pkg/server"
@@ -19,8 +20,12 @@ func InitializeAPI(config config.Config, db *gorm.DB) (*server.Server, error) {
 	if err != nil {
 		return nil, err
 	}
+	videoClient, err := videoClient.InitVideoClient(config)
+	if err != nil {
+		return nil, err
+	}
 	userRepo := repository.NewUserRepo(db)
-	usecase := server.NewMonitizationServer(conferenceClient, authClient, userRepo)
+	usecase := server.NewMonitizationServer(conferenceClient, authClient, videoClient, userRepo)
 	server := server.NewGrpcServer(config, usecase)
 	return server, nil
 }
