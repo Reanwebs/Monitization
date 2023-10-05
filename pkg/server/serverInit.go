@@ -20,10 +20,12 @@ func NewGrpcServer(cfg config.Config, server pb.MonitizationServer) *Server {
 	if err != nil {
 		log.Fatalf("Failed to listen: %v", err)
 	}
+
 	grpcServer := grpc.NewServer()
 	reflection.Register(grpcServer)
 	pb.RegisterMonitizationServer(grpcServer, server)
 	return &Server{GrpcServer: grpcServer, PortListener: listener}
+
 }
 
 func (s *Server) StartServer(cfg config.Config) error {

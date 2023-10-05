@@ -11,6 +11,7 @@ type Config struct {
 	DbPassword string `mapstructure:"DB_PASSWORD"`
 	AuthUrl    string `mapstructure:"AUTH_SERVER_URL"`
 	ConfUrl    string `mapstructure:"CONFERENCE_SERVER_URL"`
+	StreamUrl  string `mapstructure:"STREAM_SERVER_URL"`
 }
 
 func LoadConfig() (config Config, err error) {

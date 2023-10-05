@@ -5,9 +5,11 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	videoPb "monit/pb/client/stream"
 	pb "monit/pb/server"
 	authClient "monit/pkg/client/auth"
 	confClient "monit/pkg/client/conference"
+	videoClient "monit/pkg/client/stream"
 	"monit/pkg/common/utils"
 	"monit/pkg/repository"
 
@@ -16,16 +18,18 @@ import (
 
 type monitizationServer struct {
 	pb.UnimplementedMonitizationServer
-	confClient confClient.ConferenceClient
-	authClinet authClient.AuthClient
-	userRepo   repository.UserRepoMethods
+	confClient  confClient.ConferenceClient
+	authClinet  authClient.AuthClient
+	videoClient videoClient.VideoServiceClient
+	userRepo    repository.UserRepoMethods
 }
 
-func NewMonitizationServer(confClient confClient.ConferenceClient, authClient authClient.AuthClient, repo repository.UserRepoMethods) *monitizationServer {
+func NewMonitizationServer(confClient confClient.ConferenceClient, authClient authClient.AuthClient, videoClient videoClient.VideoServiceClient, repo repository.UserRepoMethods) *monitizationServer {
 	return &monitizationServer{
-		confClient: confClient,
-		authClinet: authClient,
-		userRepo:   repo,
+		confClient:  confClient,
+		authClinet:  authClient,
+		videoClient: videoClient,
+		userRepo:    repo,
 	}
 }
 
@@ -171,47 +175,53 @@ func (m *monitizationServer) VideoReward(ctx context.Context, req *pb.VideoRewar
 }
 
 func (m *monitizationServer) ExclusiveContent(ctx context.Context, req *pb.ExclusiveContentRequest) (*pb.ExclusiveContentResponse, error) {
+	resp, err := m.videoClient.VideoDetails(ctx, &videoPb.VideoDetailsRequest{VideoID: req.VideoID})
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
 	userResponse, err := m.userRepo.GetWallet(req.UserID)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
-	if userResponse.Coins < uint(req.PaidCoins) {
+	if userResponse.Coins < uint(resp.Coins) {
 		log.Println(err)
 		return nil, errors.New("Insuficient coins")
 	}
 	userInput := utils.UserRewardHistory{
 		UserID:          req.UserID,
-		RewardReason:    req.Reason,
+		RewardReason:    "Exclusive Content",
 		TransactionType: "Debit",
-		Referal:         req.VideoID,
-		CoinCount:       uint(req.PaidCoins),
+		Referal:         resp.Title,
+		CoinCount:       uint(resp.Coins),
 	}
 	if err := m.userRepo.UpdateWalletHistory(userInput); err != nil {
 		return nil, err
 	}
-	updatedCoins := userResponse.Coins - uint(req.PaidCoins)
+	updatedCoins := userResponse.Coins - uint(resp.Coins)
 	if err := m.userRepo.UpdateWallet(req.UserID, updatedCoins); err != nil {
 		return nil, err
 	}
-	ownerResponse, err := m.userRepo.GetWallet(req.UserID)
+	ownerResponse, err := m.userRepo.GetWallet(resp.OwnerID)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
 
 	ownerInput := utils.UserRewardHistory{
-		UserID:          req.Owner,
-		RewardReason:    req.Reason,
+		UserID:          resp.OwnerID,
+		RewardReason:    "Exclusive Content",
 		TransactionType: "Credit",
-		Referal:         req.VideoID,
-		CoinCount:       uint(req.PaidCoins),
+		Referal:         resp.Title,
+		CoinCount:       uint(resp.Coins),
 	}
 	if err := m.userRepo.UpdateWalletHistory(ownerInput); err != nil {
 		return nil, err
 	}
-	updatedCoins1 := ownerResponse.Coins + uint(req.PaidCoins)
-	if err := m.userRepo.UpdateWallet(req.Owner, updatedCoins1); err != nil {
+	updatedCoins1 := ownerResponse.Coins + uint(resp.Coins)
+	if err := m.userRepo.UpdateWallet(resp.OwnerID, updatedCoins1); err != nil {
 		return nil, err
 	}
 	return nil, nil
