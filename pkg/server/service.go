@@ -202,14 +202,15 @@ func (m *monitizationServer) ExclusiveContent(ctx context.Context, req *pb.Exclu
 	}
 	updatedCoins := userResponse.Coins - uint(resp.Coins)
 	if err := m.userRepo.UpdateWallet(req.UserID, updatedCoins); err != nil {
+		log.Println(err)
 		return nil, err
 	}
+
 	ownerResponse, err := m.userRepo.GetWallet(resp.OwnerID)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
-
 	ownerInput := utils.UserRewardHistory{
 		UserID:          resp.OwnerID,
 		RewardReason:    "Exclusive Content",
