@@ -68,6 +68,16 @@ func (m *monitizationServer) CreateWallet(ctx context.Context, req *pb.CreateWal
 	if err := m.userRepo.CreateWallet(req.UserID); err != nil {
 		return nil, err
 	}
+	input := utils.UserRewardHistory{
+		UserID:          req.UserID,
+		RewardReason:    "Signup",
+		TransactionType: "Credit",
+		Referal:         "",
+		CoinCount:       10,
+	}
+	if err := m.userRepo.UpdateWalletHistory(input); err != nil {
+		return nil, err
+	}
 	return &pb.CreateWalletResponse{Result: "Wallet Created"}, nil
 }
 
