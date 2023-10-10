@@ -51,9 +51,8 @@ func (r userRepo) UpdateWallet(userID string, coin uint) error {
 		UserID: userID,
 		Coins:  coin,
 	}
-	result := r.db.Save(&wallet)
-	if result.Error != nil {
-		return result.Error
+	if err := r.db.Table("wallets").Where("user_id = ?", userID).Update("coins", wallet.Coins).Error; err != nil {
+		return err
 	}
 	return nil
 }
