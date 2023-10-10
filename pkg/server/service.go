@@ -46,6 +46,10 @@ func (m *monitizationServer) ParticipationReward(ctx context.Context, req *pb.Pa
 	if err != nil {
 		return nil, err
 	}
+	response, err := m.userRepo.GetWallet(req.UserID)
+	if err != nil {
+		return nil, err
+	}
 	input := utils.UserRewardHistory{
 		UserID:          req.UserID,
 		RewardReason:    "WatchHour",
@@ -53,10 +57,11 @@ func (m *monitizationServer) ParticipationReward(ctx context.Context, req *pb.Pa
 		CoinCount:       uint(coins),
 		Time:            time.Now(),
 	}
+	response.Coins = response.Coins + coins
 	if err := m.userRepo.UpdateWalletHistory(input); err != nil {
 		return nil, err
 	}
-	if err := m.userRepo.UpdateWallet(req.UserID, uint(coins)); err != nil {
+	if err := m.userRepo.UpdateWallet(req.UserID, response.Coins); err != nil {
 		return nil, err
 	}
 	resp := &pb.ParticipationRewardResponse{
