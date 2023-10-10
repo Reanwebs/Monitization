@@ -3,7 +3,6 @@ package server
 import (
 	"context"
 	"errors"
-	"fmt"
 	"log"
 	videoPb "monit/pb/client/stream"
 	pb "monit/pb/server"
@@ -166,7 +165,6 @@ func (m *monitizationServer) UserRewardHistory(ctx context.Context, req *pb.User
 }
 
 func (m *monitizationServer) VideoReward(ctx context.Context, req *pb.VideoRewardRequest) (*pb.VideoRewardResponse, error) {
-	fmt.Println("Entered Video Reward")
 	coins, err := utils.CoinRewardCreator(utils.RewardCreator{Reason: req.Reason, Count: uint(req.Views), Coins: uint(req.PaidCoins)})
 	if err != nil {
 		return nil, err
