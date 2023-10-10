@@ -68,6 +68,16 @@ func (m *monitizationServer) CreateWallet(ctx context.Context, req *pb.CreateWal
 	if err := m.userRepo.CreateWallet(req.UserID); err != nil {
 		return nil, err
 	}
+	input := utils.UserRewardHistory{
+		UserID:          req.UserID,
+		RewardReason:    "Signup",
+		TransactionType: "Credit",
+		Referal:         "",
+		CoinCount:       10,
+	}
+	if err := m.userRepo.UpdateWalletHistory(input); err != nil {
+		return nil, err
+	}
 	return &pb.CreateWalletResponse{Result: "Wallet Created"}, nil
 }
 
@@ -202,14 +212,15 @@ func (m *monitizationServer) ExclusiveContent(ctx context.Context, req *pb.Exclu
 	}
 	updatedCoins := userResponse.Coins - uint(resp.Coins)
 	if err := m.userRepo.UpdateWallet(req.UserID, updatedCoins); err != nil {
+		log.Println(err)
 		return nil, err
 	}
+
 	ownerResponse, err := m.userRepo.GetWallet(resp.OwnerID)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
-
 	ownerInput := utils.UserRewardHistory{
 		UserID:          resp.OwnerID,
 		RewardReason:    "Exclusive Content",
