@@ -47,13 +47,11 @@ func (r userRepo) GetWallet(userID string) (utils.Wallet, error) {
 }
 
 func (r userRepo) UpdateWallet(userID string, coin uint) error {
-	var wallet utils.Wallet
-	result := r.db.Where("user_id = ?", userID).First(&wallet)
-	if result.Error != nil {
-		return result.Error
+	wallet := utils.Wallet{
+		UserID: userID,
+		Coins:  coin,
 	}
-	wallet.Coins += coin
-	result = r.db.Save(&wallet)
+	result := r.db.Save(&wallet)
 	if result.Error != nil {
 		return result.Error
 	}
