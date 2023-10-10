@@ -12,6 +12,7 @@ import (
 	videoClient "monit/pkg/client/stream"
 	"monit/pkg/common/utils"
 	"monit/pkg/repository"
+	"time"
 
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
@@ -50,6 +51,7 @@ func (m *monitizationServer) ParticipationReward(ctx context.Context, req *pb.Pa
 		RewardReason:    "WatchHour",
 		TransactionType: "Credit",
 		CoinCount:       uint(coins),
+		Time:            time.Now(),
 	}
 	if err := m.userRepo.UpdateWalletHistory(input); err != nil {
 		return nil, err
@@ -74,6 +76,7 @@ func (m *monitizationServer) CreateWallet(ctx context.Context, req *pb.CreateWal
 		TransactionType: "Credit",
 		Referal:         "",
 		CoinCount:       10,
+		Time:            time.Now(),
 	}
 	if err := m.userRepo.UpdateWalletHistory(input); err != nil {
 		return nil, err
@@ -106,6 +109,7 @@ func (m *monitizationServer) UpdateWallet(ctx context.Context, req *pb.UpdateWal
 		TransactionType: rewardType,
 		Referal:         req.UserName,
 		CoinCount:       uint(coins),
+		Time:            time.Now(),
 	}
 	if err := m.userRepo.UpdateWalletHistory(input); err != nil {
 		return nil, err
@@ -168,6 +172,7 @@ func (m *monitizationServer) VideoReward(ctx context.Context, req *pb.VideoRewar
 		TransactionType: "Credit",
 		Referal:         req.VideoID,
 		CoinCount:       uint(coins),
+		Time:            time.Now(),
 	}
 	if err := m.userRepo.UpdateWalletHistory(input); err != nil {
 		return nil, err
@@ -206,6 +211,7 @@ func (m *monitizationServer) ExclusiveContent(ctx context.Context, req *pb.Exclu
 		TransactionType: "Debit",
 		Referal:         resp.Title,
 		CoinCount:       uint(resp.Coins),
+		Time:            time.Now(),
 	}
 	if err := m.userRepo.UpdateWalletHistory(userInput); err != nil {
 		return nil, err
@@ -227,6 +233,7 @@ func (m *monitizationServer) ExclusiveContent(ctx context.Context, req *pb.Exclu
 		TransactionType: "Credit",
 		Referal:         resp.Title,
 		CoinCount:       uint(resp.Coins),
+		Time:            time.Now(),
 	}
 	if err := m.userRepo.UpdateWalletHistory(ownerInput); err != nil {
 		return nil, err
